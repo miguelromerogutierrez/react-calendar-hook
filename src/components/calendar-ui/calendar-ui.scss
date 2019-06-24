@@ -1,0 +1,112 @@
+$grid-width-mobile: 35px;
+$grid-width-tablet: 40px;
+$blue-arrows: #132238;
+$twilight: #132238;
+$line-space: #98ccd3;
+$slate: #6f8eb1;
+$mist: #98ccd3;
+$blaze: #132238;
+
+@mixin responsive($op, $device) {
+  @if $device == "tablet" {
+    @if $op == ">=" {
+      @media screen and (min-width: 500px) {
+        @content;
+      }
+    }
+  }
+}
+
+.right {
+  float: right;
+}
+
+.calendar {
+  @include responsive('>=', 'tablet') {
+    width: fit-content;
+    margin: auto;
+    margin-top: 80px;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+    color: $twilight;
+    background: #ebf0f6;
+  }
+
+  &--header {
+    position: relative;
+
+    h1 {
+      font-size: 18px;
+      text-align: left;
+    }
+
+    button:focus {
+      outline: none;
+    }
+  
+    .btn-arrows {
+      color: $blue-arrows;
+      width: 50px;
+      height: 23px;
+      cursor: pointer;
+    }
+  }
+}
+
+.calendar-grid {
+  .grid {
+    display: grid;
+    grid-template-rows: repeat(7, $grid-width-tablet);
+    justify-items: center;
+    align-items: center;
+    padding: 0 5px;
+    grid-template-columns: repeat(7, $grid-width-mobile);
+    @include responsive('>=', 'tablet') {
+      width: 100%;
+      grid-template-columns: repeat(7, $grid-width-tablet);
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+    }
+  }
+
+  &__days-of-month {
+    width: 100%;
+    grid-template-columns: repeat(7, $grid-width-mobile);
+    @include responsive('>=', 'tablet') {
+      padding: 5px;
+      grid-template-columns: repeat(7, $grid-width-tablet);
+      grid-column-gap: 10px;
+    }
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: $twilight;
+    border-bottom: 1px solid $line-space;
+    cursor: default;
+  }
+
+  &__day {
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 0;
+
+    &.active {
+      border: solid 1.2px $slate;
+      background-color: $mist;
+      border-radius: 100%;
+    }
+
+    &.past-day,
+    &.empty {
+      color: $slate;
+      cursor: default;
+    }
+
+    &.payment-day {
+      color: $blaze;
+    }
+  }
+}

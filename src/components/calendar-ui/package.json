@@ -1,0 +1,5 @@
+{
+    "name": "calendar-ui",
+    "main": "calendar-ui.js",
+    "style": "calendar-ui.scss"
+}
